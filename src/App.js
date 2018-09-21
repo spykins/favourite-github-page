@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Jumbotron, Col, Row, FormGroup, Button, FormControl } from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
+import ListItem from './components/listItem'
+
 
 class App extends Component {
   state = {
@@ -34,11 +36,13 @@ class App extends Component {
                   <FormControl.Feedback />
                   <Button type="submit" bsStyle="primary">Search</Button>
                 </div>
+
+                <ListItem />
               </form>
             </Col>
 
             <Col className="fav_list_background topPadding" xs={12} md={6}>
-              <p>Favourite block</p>
+              <ListItem />
 
             </Col>
           </Row>
