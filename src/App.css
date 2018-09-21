@@ -1,28 +1,59 @@
-.App {
-  text-align: center;
+/*
+    In order to get the required color I used, 
+    I used this application https://itunes.apple.com/ca/app/just-color-picker/id886547068?mt=12 to 
+    get the color I used.
+
+    I currently have a fixed height, I have issue trying to make the height fill the whole height of the.
+    I tried using some of  the answer on stack over flow https://stackoverflow.com/questions/11677886/twitter-bootstrap-div-in-container-with-100-height
+    https://stackoverflow.com/questions/19695784/how-can-i-make-bootstrap-columns-all-the-same-height
+    and https://stackoverflow.com/questions/19089384/twitter-bootstrap-3-two-columns-full-height 
+    but none solved my issue, I tried copying the html and css to the index.html and somehow it worked.
+
+    //TODO: 
+    I think it's an issue with react - boostrap ... I will continue to check the reason and make the height to fill the width
+
+
+*/
+
+.jumbotron {
+  margin: 0%;
+  background-color: #7937E8;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.jumbotron-text {
   color: white;
+  flex-direction: column;
+  display: flex;
+  font-size: 2em;
+  align-items: center;
 }
 
-.App-title {
-  font-size: 1.5em;
+.fav_list_background {
+  background: #F3ECFC;
+  min-height: 100%;
+
 }
 
-.App-intro {
-  font-size: large;
+.fav_row {
+  height: 500px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.formControl {
+  display: flex;
+  border: 30px;
+}
+
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+  background-color: #7937E8;
+  background-image: none;
+  margin-left: 5px;
+}
+
+.topPadding {
+  padding-top: 30px;
 }
