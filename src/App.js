@@ -42,7 +42,7 @@ class App extends Component {
             </Col>
 
             <Col className="fav_list_background topPadding" xs={12} md={6}>
-              <ListItem />
+              <ListItem isFavourite={true} isOnFavouriteList={true} />
 
             </Col>
           </Row>

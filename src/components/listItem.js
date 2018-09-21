@@ -1,8 +1,9 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import "./listitem.css";
 
-export default () => {
+const ListItem =  (props) => {
     return (
         <Table responsive className="table-header">
             <thead>
@@ -17,7 +18,10 @@ export default () => {
                     <td>1</td>
                     <td>Table cell</td>
                     <td>Table cell</td>
-                    <td><a href="a">Add</a></td>
+                    {
+                            props.isFavourite && props.isOnFavouriteList
+                            && <td><a href="a">{props.isFavourite ? "remove" : "Add"}</a></td>
+                    }
 
                 </tr>
             </tbody>
@@ -25,3 +29,10 @@ export default () => {
     );
 }
 
+ListItem.propTypes = {
+
+  isFavourite: PropTypes.bool.isRequired,
+  isOnFavouriteList: PropTypes.bool.isRequired,
+}
+
+export default ListItem;
