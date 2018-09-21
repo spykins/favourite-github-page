@@ -5,22 +5,31 @@ import Header from './components/Header';
 import SearchRepo from './components/search_repo'
 import './App.css';
 import ListItem from './components/listItem'
+import GithubFetcher from './request/GithubFetcher';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.githubFetcher = new GithubFetcher();
+  }
  
   componentWillMount() {
-    fetch("https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc")
-    .then((response) => response.json())
-    .then((responseJson) => {
-       console.log(responseJson);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    this.githubFetcher.makeRequest("tetris")
+      .then(repos => {
+        if (repos) {
+          console.log(repos.items)
+        }
+      })
+      .catch(error => console.log(error));
+
+
 
   }
 
+  componentWillUnmount() {
+    this.githubFetcher.cancelRequest()
+  }
 
   render() {
     return (
