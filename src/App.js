@@ -1,18 +1,48 @@
 import React, { Component } from 'react';
+import { Jumbotron, Col, Row, FormGroup, Button, FormControl } from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  state = {
+    value: ""
+  }
+
+  handleChange = (event) => {
+    this.setState({ value: event.target.value });
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div>
+          <Jumbotron className="jumbotron">
+            <p className="jumbotron-text">My Github Favourites</p>
+          </Jumbotron>
+        </div>
+        <div className="container-fluid">
+          <Row className="fav_row">
+            <Col xs={12} md={6} className="topPadding">
+
+              <form>
+                <div className="formControl">
+                  <FormControl
+                    type="text"
+                    value={this.state.value}
+                    placeholder="Enter text"
+                    onChange={this.handleChange}
+                  />
+                  <FormControl.Feedback />
+                  <Button type="submit" bsStyle="primary">Search</Button>
+                </div>
+              </form>
+            </Col>
+
+            <Col className="fav_list_background topPadding" xs={12} md={6}>
+              <p>Favourite block</p>
+
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }
