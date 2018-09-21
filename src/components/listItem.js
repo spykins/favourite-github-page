@@ -4,7 +4,15 @@ import PropTypes from 'prop-types';
 import "./listitem.css";
 
 const ListItem =  (props) => {
+    let listInformation = null; 
+    if (props.isFavourite && props.isOnFavouriteList) {
+        listInformation = <td><a href="a">remove</a></td>;
+    } else if (!props.isFavourite) {
+        listInformation = <td><a href="a">add</a></td>;
+    }
+
     return (
+        
         <Table responsive className="table-header">
             <thead>
                 <tr>
@@ -18,10 +26,7 @@ const ListItem =  (props) => {
                     <td>1</td>
                     <td>Table cell</td>
                     <td>Table cell</td>
-                    {
-                            props.isFavourite && props.isOnFavouriteList
-                            && <td><a href="a">{props.isFavourite ? "remove" : "Add"}</a></td>
-                    }
+                    {listInformation}
 
                 </tr>
             </tbody>

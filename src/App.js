@@ -1,44 +1,36 @@
 import React, { Component } from 'react';
 import { Jumbotron, Col, Row, FormGroup, Button, FormControl } from 'react-bootstrap';
 import logo from './logo.svg';
+import Header from './components/Header';
+import SearchRepo from './components/search_repo'
 import './App.css';
 import ListItem from './components/listItem'
 
 
 class App extends Component {
-  state = {
-    value: ""
+ 
+  componentWillMount() {
+    fetch("https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc")
+    .then((response) => response.json())
+    .then((responseJson) => {
+       console.log(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
   }
 
-  handleChange = (event) => {
-    this.setState({ value: event.target.value });
-  }
+
   render() {
     return (
       <div className="App">
-        <div>
-          <Jumbotron className="jumbotron">
-            <p className="jumbotron-text">My Github Favourites</p>
-          </Jumbotron>
-        </div>
+        <Header />
         <div className="container-fluid">
           <Row className="fav_row">
             <Col xs={12} md={6} className="topPadding">
-
-              <form>
-                <div className="formControl">
-                  <FormControl
-                    type="text"
-                    value={this.state.value}
-                    placeholder="Enter text"
-                    onChange={this.handleChange}
-                  />
-                  <FormControl.Feedback />
-                  <Button type="submit" bsStyle="primary">Search</Button>
-                </div>
-
-                <ListItem />
-              </form>
+              <SearchRepo />
+              <ListItem isFavourite={true} isOnFavouriteList={false} />
             </Col>
 
             <Col className="fav_list_background topPadding" xs={12} md={6}>
