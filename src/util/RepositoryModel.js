@@ -9,7 +9,7 @@ export default class RepositoryModel {
     }
 
     getName() {
-        return `${this._owner}/${this._name}`;
+        return this._name;
     }
 
     getUrl() {
@@ -26,6 +26,14 @@ export default class RepositoryModel {
 
     getLanguage() {
         return this._language;
+    }
+
+    getOwner() {
+        return this._owner;
+    }
+
+    getDisplayName() {
+        return `${this._owner}/${this._name}`;
     }
 
     addToFavourite(favouriteSet) {

@@ -6,12 +6,9 @@ import RepositoryListItem from './repositoryListItem'
 const RepositoryFavouriteList = (props) => {
     let listOfItems = [];
 
-    console.log("<<<>>>>>", props);
     if (props.favouriteRepositories) {
         for (let key in props.favouriteRepositories) {
             let repository = props.favouriteRepositories[key];
-            console.log(repository, " oooooooooooooo");
-
             let item = <RepositoryListItem
                 isFavourite={true}
                 isOnFavouriteList={true}
@@ -19,6 +16,8 @@ const RepositoryFavouriteList = (props) => {
                 id={repository.getId()}
                 url={repository.getUrl()}
                 name={repository.getName()}
+                owner={repository.getOwner()}
+                displayName={repository.getDisplayName()}
                 tag={repository.getTag()}
                 language={repository.getLanguage()} />
 

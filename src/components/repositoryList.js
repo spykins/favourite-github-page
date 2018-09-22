@@ -1,44 +1,41 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 import RepositoryListItem from './repositoryListItem';
 import GithubFetcher from '../request/GithubFetcher';
-import {SET_TEXT_TO_SEARCH_TO_EMPTY_STRING} from '../util/SearchViewConstants';
 
 
 class RepositoryList extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
         this.githubFetcher = new GithubFetcher();
         this.repositories = null;
     }
 
     state = {
         repositories: [],
-        textToSearchRepo:""
+        textToSearchRepo: ""
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.textToSearchRepo !== state.textToSearchRepo) {
+            return {
+                repositories: null,
+                textToSearchRepo: props.textToSearchRepo,
+            };
+        }
+
+        // Return null to indicate no change to state.
+        return null;
     }
 
 
-static getDerivedStateFromProps(props, state) {
-    if (props.textToSearchRepo !== state.textToSearchRepo) {
-      return {
-        repositories: null,
-        textToSearchRepo: props.textToSearchRepo,
-      };
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.repositories === null) {
+            this.fetchData(this.props.textToSearchRepo);
+        }
     }
-
-    // Return null to indicate no change to state.
-    return null;
-  }
-
-
-componentDidUpdate(prevProps, prevState) {
-    if (this.state.repositories === null) {
-      this.fetchData(this.props.textToSearchRepo);
-    }
-  }
 
     componentWillUnmount() {
         this.githubFetcher.cancelRequest()
@@ -50,11 +47,25 @@ componentDidUpdate(prevProps, prevState) {
     }
 
 
-
     render() {
-
+        console.log(this.state.repositories, "0000000000")
+        let listBody = null;
         if (this.state.repositories) {
-            return (
+            listBody = this.state.repositories.map(repository => <RepositoryListItem
+                isFavourite={this.props.isFavourite}
+                isOnFavouriteList={this.props.isOnFavouriteList}
+                key={repository.getId()}
+                id={repository.getId()}
+                url={repository.getUrl()}
+                name={repository.getName()}
+                owner={repository.getOwner()}
+                displayName={repository.getDisplayName()}
+                tag={repository.getTag()}
+                language={repository.getLanguage()} />
+            );
+        }
+
+        return (
             <Table responsive className="table-header">
 
                 <thead>
@@ -65,26 +76,12 @@ componentDidUpdate(prevProps, prevState) {
                     </tr>
                 </thead>
                 <tbody>
-
-                    {
-                        this.state.repositories.map(repository => <RepositoryListItem
-                            isFavourite={this.props.isFavourite} 
-                            isOnFavouriteList={this.props.isOnFavouriteList}
-                            key={repository.getId()}
-                            id={repository.getId()}
-                            url={repository.getUrl()}
-                            name={repository.getName()}
-                            tag={repository.getTag()}
-                            language={repository.getLanguage()} />
-                            )
-                    }
+                    {!this.props.hasSearchTextBeenRemoved ? listBody : null}
                 </tbody>
             </Table>
         );
-        } 
-        
-        return <div></div>
-        
+
+
     }
 }
 
@@ -92,16 +89,14 @@ componentDidUpdate(prevProps, prevState) {
 let mapStateToProps = (state) => {
     return {
         textToSearchRepo: state.textToSearchRepo,
+        hasSearchTextBeenRemoved: state.hasSearchTextBeenRemoved,
     }
 }
 
 let mapActionToProps = (dispatch) => {
     return {
-        setTextToSearchToEmptyString: () => {
-            dispatch({
-                type: SET_TEXT_TO_SEARCH_TO_EMPTY_STRING
-            })
-        }
+        
     }
 }
+
 export default connect(mapStateToProps, mapActionToProps)(RepositoryList);

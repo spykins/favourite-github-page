@@ -5,7 +5,6 @@ import {
     ON_NEW_REPOSITORY_FETCHED,
     ON_FAVOURITE_IS_MORE_THAN_ONE,
     ON_SEARCH_BUTTON_CLICKED,
-    SET_TEXT_TO_SEARCH_TO_EMPTY_STRING,
 
 } from '../util/SearchViewConstants'
 
@@ -14,6 +13,7 @@ let defaultState = {
     repositories: [],
     textToSearchRepo: "",
     favouriteRepositories: {},
+    hasTextBeencleared: false,
     hasSearchTextBeenRemoved: false,
     hasSearchedButtonBeenClicked: false,
     onRemovedFromFavouriteClickes: {},
@@ -42,8 +42,10 @@ export default (state = defaultState, action) => {
             console.log (REMOVE_FROM_FAVOURITE_CLICKED);
             return state;
         case ON_TEXT_REMOVED:
-            console.log(ON_TEXT_REMOVED);
-            return state;
+            return {
+                ...state,
+                hasSearchTextBeenRemoved : true,
+            }
         case ON_NEW_REPOSITORY_FETCHED: 
             console.log(ON_NEW_REPOSITORY_FETCHED);
             return state;
@@ -53,13 +55,9 @@ export default (state = defaultState, action) => {
         case ON_SEARCH_BUTTON_CLICKED:
             return { 
                 ...state,
-                textToSearchRepo: action.text
+                textToSearchRepo: action.text,
+                hasSearchTextBeenRemoved: false,
             };
-        case SET_TEXT_TO_SEARCH_TO_EMPTY_STRING:
-            return {
-                ...state,
-                textToSearchRepo: ""
-            }
         default:
             return state;
 

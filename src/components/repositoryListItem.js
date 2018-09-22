@@ -9,10 +9,8 @@ class ListItem extends Component {
 
     handleAddButtonClicked = (event) => {
         event.preventDefault();
-        console.log("Add button clicked ", this.props.id);
-       // console.log(this.props);
         let repositoryModel = new RepositoryModel.Builder(this.props.name)
-                                        .withOwner(this.props.name)
+                                        .withOwner(this.props.owner)
                                         .withUrl(this.props.url)
                                         .withLanguage(this.props.language)
                                         .withId(this.props.id)
@@ -27,9 +25,6 @@ class ListItem extends Component {
         if (this.props.isFavourite && this.props.isOnFavouriteList) {
             listInformation = <td><a href="a">remove</a></td>;
         } else if (!this.props.isFavourite) {
-            console.log("&&&& ", this.props.id);
-            console.log("&&&& ", this.props.favouriteRepositories);
-
             if (!this.props.favouriteRepositories[this.props.id]) {
                 listInformation = <td><a href="" onClick={this.handleAddButtonClicked}>add</a></td>;
             }
@@ -37,7 +32,7 @@ class ListItem extends Component {
         return (
 
             <tr>
-                <th><a href={this.props.url} target="_blank">{this.props.name}</a></th>
+                <th><a href={this.props.url} target="_blank">{this.props.displayName}</a></th>
                 <th>{this.props.language}</th>
                 <th>{this.props.tag}</th>
                 {listInformation}
