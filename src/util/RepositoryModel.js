@@ -24,6 +24,10 @@ export default class RepositoryModel {
         return this._url;
     }
 
+    getId() {
+        return this._id;
+    }
+
     getTag() {
         return this._tag;
     }

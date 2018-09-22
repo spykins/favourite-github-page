@@ -1,36 +1,60 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { Table } from 'react-bootstrap';
-import RepositoryListItem from './repositoryListItem'
-import GithubFetcher from '../request/GithubFetcher'
+import RepositoryListItem from './repositoryListItem';
+import GithubFetcher from '../request/GithubFetcher';
+import {SET_TEXT_TO_SEARCH_TO_EMPTY_STRING} from '../util/SearchViewConstants';
 
 
-export default class RepositoryList extends Component {
-
-    state = {
-        repositories: []
-    }
-
+class RepositoryList extends Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
         this.githubFetcher = new GithubFetcher();
+        this.repositories = null;
     }
+
+    state = {
+        repositories: [],
+        textToSearchRepo:""
+    }
+
+
+static getDerivedStateFromProps(props, state) {
+    if (props.textToSearchRepo !== state.textToSearchRepo) {
+      return {
+        repositories: null,
+        textToSearchRepo: props.textToSearchRepo,
+      };
+    }
+
+    // Return null to indicate no change to state.
+    return null;
+  }
+
+
+componentDidUpdate(prevProps, prevState) {
+    if (this.state.repositories === null) {
+      this.fetchData(this.props.textToSearchRepo);
+    }
+  }
 
     componentWillUnmount() {
         this.githubFetcher.cancelRequest()
     }
 
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    fetchData = async () => {
-        let repoModels = await this.githubFetcher.makeRequest("shopify")
+    fetchData = async (textToSearch) => {
+        let repoModels = await this.githubFetcher.makeRequest(textToSearch)
         this.setState((previousState) => ({ ...previousState, repositories: repoModels }));
     }
 
+
+
     render() {
-        return (
+
+        if (this.state.repositories) {
+            return (
             <Table responsive className="table-header">
 
                 <thead>
@@ -44,14 +68,39 @@ export default class RepositoryList extends Component {
 
                     {
                         this.state.repositories.map(repository => <RepositoryListItem
+                            isFavourite={this.props.isFavourite} 
+                            isOnFavouriteList={this.props.isOnFavouriteList}
+                            key={repository.getId()}
                             url={repository.getUrl()}
                             name={repository.getName()}
                             tag={repository.getTag()}
-                            language={repository.getLanguage()}
-                            isOnFavouriteList={repository.isOnFavouriteList} />)
+                            language={repository.getLanguage()} />
+                            )
                     }
                 </tbody>
             </Table>
         );
+        } 
+        
+        return <div></div>
+        
     }
 }
+
+
+let mapStateToProps = (state) => {
+    return {
+        textToSearchRepo: state.textToSearchRepo,
+    }
+}
+
+let mapActionToProps = (dispatch) => {
+    return {
+        setTextToSearchToEmptyString: () => {
+            dispatch({
+                type: SET_TEXT_TO_SEARCH_TO_EMPTY_STRING
+            })
+        }
+    }
+}
+export default connect(mapStateToProps, mapActionToProps)(RepositoryList);

@@ -1,17 +1,18 @@
 import {
     ADD_REPOSITORY_TO_FAVOURITE_CLICKED,
     REMOVE_FROM_FAVOURITE_CLICKED,
-    SEARCH_BUTTON_CLICKED,
     ON_TEXT_REMOVED,
     ON_NEW_REPOSITORY_FETCHED,
     ON_FAVOURITE_IS_MORE_THAN_ONE,
-    ON_SEARCH_BUTTON_CLICKED
+    ON_SEARCH_BUTTON_CLICKED,
+    SET_TEXT_TO_SEARCH_TO_EMPTY_STRING,
 
 } from '../util/SearchViewConstants'
 
 
 let defaultState = {
     repositories: [],
+    textToSearchRepo: "",
     favouriteRepositories: {},
     hasSearchTextBeenRemoved: false,
     hasSearchedButtonBeenClicked: false,
@@ -37,9 +38,6 @@ export default (state = defaultState, action) => {
 
             console.log (REMOVE_FROM_FAVOURITE_CLICKED);
             return state;
-        case SEARCH_BUTTON_CLICKED:
-            console.log(SEARCH_BUTTON_CLICKED);
-            return state;
         case ON_TEXT_REMOVED:
             console.log(ON_TEXT_REMOVED);
             return state;
@@ -50,8 +48,15 @@ export default (state = defaultState, action) => {
             console.log(ON_FAVOURITE_IS_MORE_THAN_ONE);
             return state;
         case ON_SEARCH_BUTTON_CLICKED:
-            console.log(ON_SEARCH_BUTTON_CLICKED);
-            return state;
+            return { 
+                ...state,
+                textToSearchRepo: action.text
+            };
+        case SET_TEXT_TO_SEARCH_TO_EMPTY_STRING:
+            return {
+                ...state,
+                textToSearchRepo: ""
+            }
         default:
             return state;
 

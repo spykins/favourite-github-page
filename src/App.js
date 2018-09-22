@@ -16,7 +16,7 @@ class App extends Component {
           <Row className="fav_row">
             <Col xs={12} md={6} className="topPadding">
               <SearchRepo />
-              <RepositoryList isFavourite={true} isOnFavouriteList={false} />
+              <RepositoryList isFavourite={false} isOnFavouriteList={false} />
             </Col>
 
             <Col className="fav_list_background topPadding" xs={12} md={6}>

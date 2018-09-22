@@ -19,12 +19,14 @@ export default class GithubFetcher {
                     break;
                 }
                 let theLatestTag = await this.makeCallToGetLatestTag(repositories[i])
-                if (theLatestTag.length > 0) {
-                    repositories[i]["tag"] = theLatestTag[0].name;
-                } else {
-                    repositories[i]["tag"] = "";
+                if (theLatestTag) {
+                    if (theLatestTag.length > 0) {
+                        repositories[i]["tag"] = theLatestTag[0].name;
+                    } else {
+                        repositories[i]["tag"] = "";
+                    }
+                    tenRepositories.push(new RepositoryModel(repositories[i])); 
                 }
-                tenRepositories.push(new RepositoryModel(repositories[i]));
             }
         }  
         
@@ -38,7 +40,6 @@ export default class GithubFetcher {
                 {
                         cancelToken: this.signal.token,
                 });
-            console.log(">>>>>> ", data);
             return data;
           } catch (error) {
             console.log (error);
