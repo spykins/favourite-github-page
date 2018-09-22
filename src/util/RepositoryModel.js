@@ -4,7 +4,8 @@
 //fullName has the required format already, decided to create my own string because that was what was specified
 
 //url ====> item.html_url
-//
+
+
 export default class RepositoryModel {
     constructor(repository) {
         this._name = repository.name;
@@ -15,27 +16,31 @@ export default class RepositoryModel {
         this._tag = repository.tag;
     }
 
-    getName () {
+    getName() {
         return `${this._owner}/${this._name}`;
     }
 
-    getUrl () {
+    getUrl() {
         return this._url;
     }
 
-    getTag () {
+    getTag() {
         return this._tag;
     }
 
-    addToFavourite (favouriteSet) {
+    getLanguage() {
+        return this._language;
+    }
+
+    addToFavourite(favouriteSet) {
         favouriteSet.add(this._id);
     }
 
-    isSavedAsFavourite (favouriteSet) {
+    isSavedAsFavourite(favouriteSet) {
         return favouriteSet.has(this._id);
     }
 
-    toString () {
-        return `name: ${this.getName()}, url: ${this.getUrl()}, tag: ${this.getTag()} `
+    toString() {
+        return `name: ${this.getName()}, url: ${this.getUrl()}, tag: ${this.getTag()}, language: ${this.getLanguage()} `
     }
 }
