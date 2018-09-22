@@ -27,10 +27,13 @@ export default (state = defaultState, action) => {
 
         case ADD_REPOSITORY_TO_FAVOURITE_CLICKED:
         console.log (ADD_REPOSITORY_TO_FAVOURITE_CLICKED);
+        console.log ("id: ", action.id, " and the repository ", action.repository.toString());
+
         return {
             ...state,
             favouriteRepositories: {
                 ...state.favouriteRepositories,
+                [action.id]: action.repository,
             }
 
         }

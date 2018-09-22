@@ -71,6 +71,7 @@ componentDidUpdate(prevProps, prevState) {
                             isFavourite={this.props.isFavourite} 
                             isOnFavouriteList={this.props.isOnFavouriteList}
                             key={repository.getId()}
+                            id={repository.getId()}
                             url={repository.getUrl()}
                             name={repository.getName()}
                             tag={repository.getTag()}

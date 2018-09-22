@@ -3,7 +3,8 @@ import { Col, Row } from 'react-bootstrap';
 import Header from './components/Header';
 import SearchRepo from './components/search_repo'
 import './App.css';
-import RepositoryList from './components/repositoryList'
+import RepositoryList from './components/repositoryList';
+import RepositoryFavouriteList from './components/repositoryFavouriteList';
 
 class App extends Component {
 
@@ -20,7 +21,7 @@ class App extends Component {
             </Col>
 
             <Col className="fav_list_background topPadding" xs={12} md={6}>
-            {/* <RepositoryList isFavourite={true} isOnFavouriteList={true} */}
+              <RepositoryFavouriteList isFavourite={true} isOnFavouriteList={true} />
             </Col>
           </Row>
         </div>

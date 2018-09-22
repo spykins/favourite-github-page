@@ -1,24 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import "./repositoryListItem.css";
+import {ADD_REPOSITORY_TO_FAVOURITE_CLICKED} from '../util/SearchViewConstants';
+import RepositoryModel from '../util/RepositoryModel';
 
-const ListItem = (props) => {
-    let listInformation = null;
-    if (props.isFavourite && props.isOnFavouriteList) {
-        listInformation = <td><a href="a">remove</a></td>;
-    } else if (!props.isFavourite) {
-        listInformation = <td><a href="a">add</a></td>;
+class ListItem extends Component {
+
+    handleAddButtonClicked = (event) => {
+        event.preventDefault();
+        console.log("Add button clicked ", this.props.id);
+       // console.log(this.props);
+        let repositoryModel = new RepositoryModel.Builder(this.props.name)
+                                        .withOwner(this.props.name)
+                                        .withUrl(this.props.url)
+                                        .withLanguage(this.props.language)
+                                        .withId(this.props.id)
+                                        .withTag(this.props.tag)
+                                        .build();
+        this.props.sendNewFavouriteClicked(this.props.id, repositoryModel)
     }
 
-    return (
+    render() {
 
-        <tr>
-            <th><a href={props.url} target="_blank">{props.name}</a></th>
-            <th>{props.language}</th>
-            <th>{props.tag}</th>
-            {listInformation}
-        </tr>
-    );
+        let listInformation = null;
+        if (this.props.isFavourite && this.props.isOnFavouriteList) {
+            listInformation = <td><a href="a">remove</a></td>;
+        } else if (!this.props.isFavourite) {
+            console.log("&&&& ", this.props.id);
+            console.log("&&&& ", this.props.favouriteRepositories);
+
+            if (!this.props.favouriteRepositories[this.props.id]) {
+                listInformation = <td><a href="" onClick={this.handleAddButtonClicked}>add</a></td>;
+            }
+        }
+        return (
+
+            <tr>
+                <th><a href={this.props.url} target="_blank">{this.props.name}</a></th>
+                <th>{this.props.language}</th>
+                <th>{this.props.tag}</th>
+                {listInformation}
+            </tr>
+        );
+
+
+    }
+
 }
 
 ListItem.propTypes = {
@@ -27,4 +55,23 @@ ListItem.propTypes = {
     isOnFavouriteList: PropTypes.bool.isRequired,
 }
 
-export default ListItem;
+let mapStateToProps = (state) => {
+    return {
+        favouriteRepositories: state.favouriteRepositories,
+    }
+}
+
+
+let mapPropsToAction = (dispatch) => {
+    return {
+        sendNewFavouriteClicked: (id, repository) => {
+            dispatch({
+                type: ADD_REPOSITORY_TO_FAVOURITE_CLICKED,
+                id,
+                repository
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapPropsToAction)(ListItem);

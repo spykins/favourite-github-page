@@ -3,6 +3,7 @@ import RepositoryModel from '../util/RepositoryModel'
 
 //https://github.com/axios/axios#cancellation
 
+
 export default class GithubFetcher {
     constructor() {
         this.signal = axios.CancelToken.source();
@@ -25,7 +26,19 @@ export default class GithubFetcher {
                     } else {
                         repositories[i]["tag"] = "";
                     }
-                    tenRepositories.push(new RepositoryModel(repositories[i])); 
+
+                    let repo = repositories[i];
+                    
+                    tenRepositories.push( 
+                        new RepositoryModel.Builder(repo.name)
+                            .withOwner(repo.owner.login)
+                            .withUrl(repo.html_url)
+                            .withLanguage(repo.language)
+                            .withId(repo.node_id)
+                            .withTag(repo.tag)
+                            .build()
+                    
+                    ); 
                 }
             }
         }  
