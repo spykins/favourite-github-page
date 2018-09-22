@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import "./repositoryListItem.css";
 import {ADD_REPOSITORY_TO_FAVOURITE_CLICKED} from '../util/SearchViewConstants';
 import RepositoryModel from '../util/RepositoryModel';
+import {REMOVE_FROM_FAVOURITE_CLICKED} from '../util/SearchViewConstants'
 
 class ListItem extends Component {
 
@@ -19,11 +20,17 @@ class ListItem extends Component {
         this.props.sendNewFavouriteClicked(this.props.id, repositoryModel)
     }
 
+    handleRemoveFavourite = (event) => {
+        event.preventDefault();        
+        this.props.sendOnFavouriteRemove(this.props.id);
+
+    }
+
     render() {
 
         let listInformation = null;
         if (this.props.isFavourite && this.props.isOnFavouriteList) {
-            listInformation = <td><a href="a">remove</a></td>;
+            listInformation = <td><a href="" onClick={this.handleRemoveFavourite}>remove</a></td>;
         } else if (!this.props.isFavourite) {
             if (!this.props.favouriteRepositories[this.props.id]) {
                 listInformation = <td><a href="" onClick={this.handleAddButtonClicked}>add</a></td>;
@@ -32,7 +39,7 @@ class ListItem extends Component {
         return (
 
             <tr>
-                <th><a href={this.props.url} target="_blank">{this.props.displayName}</a></th>
+                <th><a href={this.props.url} target="_blank" className="removeLinkColor">{this.props.displayName}</a></th>
                 <th>{this.props.language}</th>
                 <th>{this.props.tag}</th>
                 {listInformation}
@@ -64,6 +71,12 @@ let mapPropsToAction = (dispatch) => {
                 type: ADD_REPOSITORY_TO_FAVOURITE_CLICKED,
                 id,
                 repository
+            })
+        },
+        sendOnFavouriteRemove: (id) => {
+            dispatch({
+                type: REMOVE_FROM_FAVOURITE_CLICKED,
+                id
             })
         }
     }

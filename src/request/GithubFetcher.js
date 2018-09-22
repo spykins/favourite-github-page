@@ -1,5 +1,6 @@
 import axios from 'axios';
 import RepositoryModel from '../util/RepositoryModel'
+import TOKEN from "../token";
 
 //https://github.com/axios/axios#cancellation
 
@@ -28,7 +29,7 @@ export default class GithubFetcher {
                     }
 
                     let repo = repositories[i];
-                    
+
                     tenRepositories.push( 
                         new RepositoryModel.Builder(repo.name)
                             .withOwner(repo.owner.login)
@@ -52,6 +53,9 @@ export default class GithubFetcher {
             const {data} = await axios.get(repository.tags_url, 
                 {
                         cancelToken: this.signal.token,
+                        headers: {
+                            Authorization : `token ${TOKEN}`
+                          }
                 });
             return data;
           } catch (error) {
@@ -65,6 +69,9 @@ export default class GithubFetcher {
             const {data} = await axios.get(`https://api.github.com/search/repositories?q=${nameOfRepositoryToSearch}`, 
                 {
                         cancelToken: this.signal.token,
+                        headers: {
+                            Authorization : `token ${TOKEN}`
+                          }
                 });
 
             return data;

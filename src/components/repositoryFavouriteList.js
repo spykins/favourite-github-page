@@ -6,7 +6,7 @@ import RepositoryListItem from './repositoryListItem'
 const RepositoryFavouriteList = (props) => {
     let listOfItems = [];
 
-    if (props.favouriteRepositories) {
+    if (props.favouriteRepositories && Object.keys(props.favouriteRepositories).length > 1) {
         for (let key in props.favouriteRepositories) {
             let repository = props.favouriteRepositories[key];
             let item = <RepositoryListItem
@@ -27,7 +27,7 @@ const RepositoryFavouriteList = (props) => {
 
 
     return (
-        <Table responsive className="table-header">
+        <Table responsive className="table-header table-borderless">
 
             <thead>
                 <tr>

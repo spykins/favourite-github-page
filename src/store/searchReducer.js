@@ -38,9 +38,15 @@ export default (state = defaultState, action) => {
 
         }
         case REMOVE_FROM_FAVOURITE_CLICKED: 
+            let tempObject = Object.assign({}, state.favouriteRepositories)
+            delete tempObject[action.id]
 
-            console.log (REMOVE_FROM_FAVOURITE_CLICKED);
-            return state;
+
+            return { 
+                    ...state,
+                    favouriteRepositories: tempObject,
+                };
+
         case ON_TEXT_REMOVED:
             return {
                 ...state,

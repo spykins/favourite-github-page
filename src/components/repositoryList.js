@@ -48,7 +48,6 @@ class RepositoryList extends Component {
 
 
     render() {
-        console.log(this.state.repositories, "0000000000")
         let listBody = null;
         if (this.state.repositories) {
             listBody = this.state.repositories.map(repository => <RepositoryListItem
@@ -66,7 +65,7 @@ class RepositoryList extends Component {
         }
 
         return (
-            <Table responsive className="table-header">
+            <Table responsive className="table-header table-borderless">
 
                 <thead>
                     <tr>
