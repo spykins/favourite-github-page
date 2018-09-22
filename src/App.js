@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Jumbotron, Col, Row, FormGroup, Button, FormControl } from 'react-bootstrap';
-import logo from './logo.svg';
+import { Col, Row } from 'react-bootstrap';
 import Header from './components/Header';
 import SearchRepo from './components/search_repo'
 import './App.css';
@@ -15,16 +14,14 @@ class App extends Component {
   }
  
   componentWillMount() {
-    this.githubFetcher.makeRequest("tetris")
-      .then(repos => {
-        if (repos) {
-          console.log(repos.items)
-        }
-      })
-      .catch(error => console.log(error));
+    this.fetchData();
+  }
 
-
-
+  fetchData = async () => {
+    let repoModels = await this.githubFetcher.makeRequest("shopify")
+    for (let i = 0, j = repoModels.length; i<j; i++) {
+      console.log("************ ", repoModels[i].toString());
+    }
   }
 
   componentWillUnmount() {
