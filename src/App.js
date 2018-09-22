@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
-import { Jumbotron, Col, Row, FormGroup, Button, FormControl } from 'react-bootstrap';
-import logo from './logo.svg';
+import { Col, Row } from 'react-bootstrap';
 import Header from './components/Header';
 import SearchRepo from './components/search_repo'
 import './App.css';
 import ListItem from './components/listItem'
+import GithubFetcher from './request/GithubFetcher';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.githubFetcher = new GithubFetcher();
+  }
  
   componentWillMount() {
-    fetch("https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc")
-    .then((response) => response.json())
-    .then((responseJson) => {
-       console.log(responseJson);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
+    this.fetchData();
   }
 
+  fetchData = async () => {
+    let repoModels = await this.githubFetcher.makeRequest("shopify")
+    for (let i = 0, j = repoModels.length; i<j; i++) {
+      console.log("************ ", repoModels[i].toString());
+    }
+  }
+
+  componentWillUnmount() {
+    this.githubFetcher.cancelRequest()
+  }
 
   render() {
     return (
