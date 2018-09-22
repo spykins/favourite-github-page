@@ -55,16 +55,3 @@ export default class RepositoryList extends Component {
         );
     }
 }
-
-
-/**
- * 
- *         return `name: ${this.getName()}, url: ${this.getUrl()}, tag: ${this.getTag()}, language: ${this.getLanguage()} `
-
-      <th><a href={this.props.url} target="_blank">{this.props.name}</a></th>
-            <th>{this.props.language}</th>
-            <th>{this.props.tag}</th>
-            {listInformation}
-        </tr>
-
- */
