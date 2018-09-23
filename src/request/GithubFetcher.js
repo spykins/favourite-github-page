@@ -1,6 +1,6 @@
 import axios from 'axios';
 import RepositoryModel from '../util/RepositoryModel'
-import TOKEN from "../token";
+let TOKEN = process.env.REACT_APP_API_KEY;
 
 //https://github.com/axios/axios#cancellation
 
