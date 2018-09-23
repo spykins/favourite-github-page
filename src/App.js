@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Header from './components/Header';
-import SearchRepo from './components/search_repo'
+import SearchInput from './components/searchInput'
 import './App.css';
 import RepositoryList from './components/repositoryList';
 import RepositoryFavouriteList from './components/repositoryFavouriteList';
@@ -16,7 +16,7 @@ class App extends Component {
         <div className="container-fluid">
           <Row className="fav_row">
             <Col xs={12} md={6} className="topPadding">
-              <SearchRepo />
+              <SearchInput />
               <RepositoryList isFavourite={false} isOnFavouriteList={false} />
             </Col>
 
