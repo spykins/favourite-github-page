@@ -14,7 +14,6 @@ export default class GithubFetcher {
         let repositories = await this.makeCallToGetRepository(nameOfRepositoryToSearch);
         repositories = repositories.items;
         let tenRepositories = [];
-        console.log(repositories);
         if (repositories) {
             for (let i = 0, j = repositories.length; i < j; i++ ) {
                 if (i === 10) {
