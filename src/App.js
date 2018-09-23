@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Col, Row } from 'react-bootstrap';
+import Header from './components/Header';
+import SearchInput from './components/searchInput'
 import './App.css';
+import RepositoryList from './components/repositoryList';
+import RepositoryFavouriteList from './components/repositoryFavouriteList';
 
 class App extends Component {
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Header />
+        <div className="container-fluid">
+          <Row className="fav_row">
+            <Col xs={12} md={6} className="topPadding">
+              <SearchInput />
+              <RepositoryList isFavourite={false} isOnFavouriteList={false} />
+            </Col>
+
+            <Col className="fav_list_background topPadding" xs={12} md={6}>
+              <RepositoryFavouriteList isFavourite={true} isOnFavouriteList={true} />
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }

@@ -1,28 +1,58 @@
-.App {
-  text-align: center;
+.jumbotron {
+  margin: 0%;
+  background-color: #7937E8;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.jumbotron-text {
   color: white;
+  flex-direction: column;
+  display: flex;
+  font-size: 2em;
+  align-items: center;
 }
 
-.App-title {
-  font-size: 1.5em;
+.fav_list_background {
+  background: #F3ECFC;
+  min-height: 100%;
+
 }
 
-.App-intro {
-  font-size: large;
+.fav_row {
+  height: 500px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.formControl {
+  display: flex;
+  border: 30px;
+}
+
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+  background-color: #7937E8;
+  background-image: none;
+  margin-left: 5px;
+}
+
+.topPadding {
+  padding-top: 30px;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none !important;
+    padding-top: 10px;
+}
+
+.removeLinkColor {
+  color: inherit;
+  text-decoration: none;
+
 }
