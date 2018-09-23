@@ -4,6 +4,13 @@ import { Table } from 'react-bootstrap';
 import RepositoryListItem from './repositoryListItem';
 import GithubFetcher from '../request/GithubFetcher';
 
+/**
+ * @class RepositoryList 
+ * The datasource of the RepositoryList is from the GithubFetcher which is triggered when search is made
+ * @see RepositoryList renders list of 
+ * @requires ./repositoryListItem  
+ * @author Akinsanmi Waleola
+ */
 
 class RepositoryList extends Component {
 

@@ -6,6 +6,11 @@ import './App.css';
 import RepositoryList from './components/repositoryList';
 import RepositoryFavouriteList from './components/repositoryFavouriteList';
 
+/**
+ * @class App is the root component of the appliction
+ * It renders all other components.
+ * @author Akinsanmi Waleola
+ */
 class App extends Component {
 
 

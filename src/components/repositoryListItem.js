@@ -6,6 +6,12 @@ import {ADD_REPOSITORY_TO_FAVOURITE_CLICKED} from '../util/SearchViewConstants';
 import RepositoryModel from '../util/RepositoryModel';
 import {REMOVE_FROM_FAVOURITE_CLICKED} from '../util/SearchViewConstants'
 
+/**
+ * @class ListItem renders the Name of repository, language, is and the tag if present
+ * @prop {name, owner, url, language, id, tag} passed into it
+ * 
+ * @author Akinsanmi Waleola
+ */
 class ListItem extends Component {
 
     handleAddButtonClicked = (event) => {

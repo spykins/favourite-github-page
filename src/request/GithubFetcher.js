@@ -4,7 +4,13 @@ let TOKEN = process.env.REACT_APP_API_KEY;
 
 //https://github.com/axios/axios#cancellation
 
-
+/**
+ * @class GithubFetcher fetch information from Github api base on the input into the 
+ * @see ../components/searchInput.js field
+ * response to the action through a component that manages making request and cancellation when the component unmounts
+ * 
+ * @author Akinsanmi Waleola
+ */
 export default class GithubFetcher {
     constructor() {
         this.signal = axios.CancelToken.source();

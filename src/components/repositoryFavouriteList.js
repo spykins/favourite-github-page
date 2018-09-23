@@ -3,6 +3,13 @@ import { connect } from 'react-redux';
 import {Table} from 'react-bootstrap';
 import RepositoryListItem from './repositoryListItem'
 
+/**
+ * @param {*} props maps state.favouriteRepositories to favouriteRepositories
+ * which fetch the favourite repositories in the state
+ * @see RepositoryFavouriteList renders list of 
+ * @requires ./repositoryListItem  
+ * @author Akinsanmi Waleola
+ */
 const RepositoryFavouriteList = (props) => {
     let listOfItems = [];
 
@@ -45,6 +52,11 @@ const RepositoryFavouriteList = (props) => {
 
 }
 
+/**
+ * 
+ * @param {*} state from the store 
+ * 
+ */
 let mapStateToProps = (state) => {
     return {
         favouriteRepositories: state.favouriteRepositories,
