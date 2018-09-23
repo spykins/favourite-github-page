@@ -1,7 +1,9 @@
 import axios from 'axios';
 import RepositoryModel from '../util/RepositoryModel'
+let TOKEN = process.env.REACT_APP_API_KEY;
 
 //https://github.com/axios/axios#cancellation
+
 
 export default class GithubFetcher {
     constructor() {
@@ -19,12 +21,26 @@ export default class GithubFetcher {
                     break;
                 }
                 let theLatestTag = await this.makeCallToGetLatestTag(repositories[i])
-                if (theLatestTag.length > 0) {
-                    repositories[i]["tag"] = theLatestTag[0].name;
-                } else {
-                    repositories[i]["tag"] = "";
+                if (theLatestTag) {
+                    if (theLatestTag.length > 0) {
+                        repositories[i]["tag"] = theLatestTag[0].name;
+                    } else {
+                        repositories[i]["tag"] = "";
+                    }
+
+                    let repo = repositories[i];
+
+                    tenRepositories.push( 
+                        new RepositoryModel.Builder(repo.name)
+                            .withOwner(repo.owner.login)
+                            .withUrl(repo.html_url)
+                            .withLanguage(repo.language)
+                            .withId(repo.node_id)
+                            .withTag(repo.tag)
+                            .build()
+                    
+                    ); 
                 }
-                tenRepositories.push(new RepositoryModel(repositories[i]));
             }
         }  
         
@@ -37,8 +53,10 @@ export default class GithubFetcher {
             const {data} = await axios.get(repository.tags_url, 
                 {
                         cancelToken: this.signal.token,
+                        headers: {
+                            Authorization : `token ${TOKEN}`
+                          }
                 });
-            console.log(">>>>>> ", data);
             return data;
           } catch (error) {
             console.log (error);
@@ -51,6 +69,9 @@ export default class GithubFetcher {
             const {data} = await axios.get(`https://api.github.com/search/repositories?q=${nameOfRepositoryToSearch}`, 
                 {
                         cancelToken: this.signal.token,
+                        headers: {
+                            Authorization : `token ${TOKEN}`
+                          }
                 });
 
             return data;

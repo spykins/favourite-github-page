@@ -1,41 +1,87 @@
-//name ====> item.name
-//owner ===> item.owner.login
-
-//fullName has the required format already, decided to create my own string because that was what was specified
-
-//url ====> item.html_url
-//
 export default class RepositoryModel {
-    constructor(repository) {
-        this._name = repository.name;
-        this._owner = repository.owner.login;
-        this._url = repository.html_url;
-        this._language = repository.language;
-        this._id = repository.node_id;
-        this._tag = repository.tag;
+    constructor(build) {
+        this._name = build.name;
+        this._owner = build.owner;
+        this._url = build.url;
+        this._language = build.language;
+        this._id = build.id;
+        this._tag = build.tag;
     }
 
-    getName () {
-        return `${this._owner}/${this._name}`;
+    getName() {
+        return this._name;
     }
 
-    getUrl () {
+    getUrl() {
         return this._url;
     }
 
-    getTag () {
+    getId() {
+        return this._id;
+    }
+
+    getTag() {
         return this._tag;
     }
 
-    addToFavourite (favouriteSet) {
+    getLanguage() {
+        return this._language;
+    }
+
+    getOwner() {
+        return this._owner;
+    }
+
+    getDisplayName() {
+        return `${this._owner}/${this._name}`;
+    }
+
+    addToFavourite(favouriteSet) {
         favouriteSet.add(this._id);
     }
 
-    isSavedAsFavourite (favouriteSet) {
+    isSavedAsFavourite(favouriteSet) {
         return favouriteSet.has(this._id);
     }
 
-    toString () {
-        return `name: ${this.getName()}, url: ${this.getUrl()}, tag: ${this.getTag()} `
+    toString() {
+        return `name: ${this.getName()}, url: ${this.getUrl()}, tag: ${this.getTag()}, language: ${this.getLanguage()}, id: ${this.getId()}`
     }
+
+    static get Builder() {
+        class Builder {
+           constructor(name) {
+              this.name = name;
+           }
+           withOwner(owner) {
+              this.owner = owner;
+              return this;
+           }
+           withUrl(url) {
+              this.url = url;
+              return this;
+           }
+
+           withLanguage(language) {
+               this.language = language;
+               return this;
+           }
+
+           withId(id) {
+               this.id = id;
+               return this;
+           }
+
+           withTag(tag) {
+               this.tag = tag;
+               return this;
+           }
+
+           build() {
+              return new RepositoryModel(this);
+           }
+        }
+        
+        return Builder;
+     }
 }
